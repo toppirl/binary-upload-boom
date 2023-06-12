@@ -1,15 +1,15 @@
-const express = require("express");
+const express = require("express"); // help build out API
 const app = express();
-const mongoose = require("mongoose");
-const passport = require("passport");
-const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
-const methodOverride = require("method-override");
-const flash = require("express-flash");
-const logger = require("morgan");
-const connectDB = require("./config/database");
-const mainRoutes = require("./routes/main");
-const postRoutes = require("./routes/posts");
+const mongoose = require("mongoose"); // talk to mongoDB database
+const passport = require("passport"); // authentication for Login
+const session = require("express-session"); // so users can stay logged in as they move across application
+const MongoStore = require("connect-mongo")(session); // storing the actual session in the MongoDB to stay logged in
+const methodOverride = require("method-override"); // allows us to use DELETE/PUT/GET/POST inside application
+const flash = require("express-flash"); // show us notifications throughout app
+const logger = require("morgan"); // logs stuff to console for viewing
+const connectDB = require("./config/database"); // connect to database
+const mainRoutes = require("./routes/main"); // main routes
+const postRoutes = require("./routes/posts"); // post routes
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -26,7 +26,7 @@ app.set("view engine", "ejs");
 //Static Folder
 app.use(express.static("public"));
 
-//Body Parsing
+//Body Parsing to pull things out of forms
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -59,5 +59,5 @@ app.use("/post", postRoutes);
 
 //Server Running
 app.listen(process.env.PORT, () => {
-  console.log("Server is running, you better catch it!");
+  console.log(`Server is running on ${process.env.PORT}, you better catch it!`);
 });
